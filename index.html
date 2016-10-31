@@ -7,7 +7,7 @@
     font-family: 'Helvetica';
     font-size: 20px;
     font-weight: bold;
-    background-color: lime;
+    background-image: url(http://wallpapercave.com/wp/FOyu6CV.jpg);
   }
 
   #chat {
@@ -30,6 +30,8 @@
 <div id="chat">
   <div id="messages"></div>
   <input disabled placeholder="Connecting..." id="newmessage"></input>
+  <button type="button" id="buttonMessage"> Submit </button>
+
 </div>
 
 <!-- Imports jQuery -->
@@ -59,15 +61,20 @@
     'onclose': function() {}, // No-op.
   };
 channel.open(handler);
+function learning(){
+  $.post('/send', {data: newmessage.val()});
+  newmessage.val('');
+}
 
+$("#buttonMessage").click(function(button){
+  learning();
+});
 // Enter-button handler, i.e. send a message.
 newmessage.on('keypress', function(e) {
   if (e.key === 'Enter' && newmessage.val() !== '') {
-    $.post('/send', {data: newmessage.val()});
-    newmessage.val('');
+    learning();
   };
 });
-
 // Force all focus to the input box.
 newmessage.on('blur', function(e) {
   newmessage.focus();
