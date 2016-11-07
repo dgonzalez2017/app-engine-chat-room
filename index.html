@@ -55,7 +55,16 @@
     },
     'onmessage': function(m) {
       // Blindly append the message to the end of the element.
-      messages.append('<p class="message">' + m.data + '</p>');
+      //messages.append('<p class="message">' + m.data + '</p>');
+      var msg = m.data;
+
+      msg = msg.replace('/shruggie', '¯\\_(ツ)_/¯');
+      
+      var roll =  Math.floor((Math.random() * 6) + 1);
+
+      msg = msg.replace('/roll',roll);
+      messages.append('<p class="message">' + msg + '</p>');
+
     },
     'onerror': function() {}, // No-op.
     'onclose': function() {}, // No-op.
@@ -79,4 +88,5 @@ newmessage.on('keypress', function(e) {
 newmessage.on('blur', function(e) {
   newmessage.focus();
 });
+
 </script>
